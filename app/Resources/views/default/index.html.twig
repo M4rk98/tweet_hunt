@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset("css/main.css") }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card white darken-1 center-align">
+                        <h3>Tweet Hunt</h3>
+                        <div class="card-content black-text">
+                            {{ form_start(form) }}
+                            <div class="col s8">
+                                {{ form_widget(form.search) }}
+                            </div>
+                            <div class="col s2">
+                                {{ form_widget(form.lang) }}
+                            </div>
+                            <div class="col s2">
+                                {{ form_widget(form.type) }}
+
+                            </div>
+                            <div class="col s12">
+                                {{ form_widget(form.save,
+                                    {'attr':
+                                        {'style': 'width:100%', 'class': 'waves-effect waves-light btn-large'},
+                                    })
+                                }}
+                            </div>
+                            {{ form_end(form) }}
+
+                            <div>
+                                <table class="responsive-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Tweet</th>
+                                        <th>Created</th>
+                                        <th>Author</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                    {% for tweet in tweets %}
+                                        <tr>
+                                            <td>{{ tweet.text }}</td>
+                                            <td>{{ tweet.created_at |date("m/d/Y") }}</td>
+                                            <td>{{ tweet.user.name }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
+
+    </script>
+{% endblock %}
